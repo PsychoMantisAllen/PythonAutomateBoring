@@ -62,4 +62,33 @@ print(mo.group(1))
 mo = batRegex.search('Batadmin lost a wheel')
 print(mo == None)
 
+batRegex = re.compile(r'Bat(wo)?man')  # can take 0 or 1 time of wo in front of man, similar to batman or batwoman
+mo = batRegex.search('The Adventures of Batwoman')
+print(mo.group())
+mo = batRegex.search('The adventures of Batwowowoman')
+print(mo.group())
+
+# this can apply to the phone case as well
+phoneRegex = re.compile(r'(\d\d\d-)?\d\d\d-\d\d\d\d')
+
+# if we want the case to match 0 or more times
+batRegex = re.compile(r'Bat(wo)*man')
+# if we want the case to match 1 or more times
+batRegex = re.compile(r'Bat(wo)+man')
+# if we want to look for same cases in rows with certain times (say 3 times)
+phoneRegex = re.compile(r'((\d\d\d-)?\d\d\d-\d\d\d\d(,)?){3}')
+phoneRegex.search('My number are 415-555-1234,555-4242.212-555-0000')
+# if we want to look for cases in rows with certain times that sits in a boundary (say min 3 and max 5)
+phoneRegex = re.compile(r'((\d\d\d-)?\d\d\d-\d\d\d\d(,)?){3,5}')
+# we can set the max or min as unbounded
+phoneRegex = re.compile(r'((\d\d\d-)?\d\d\d-\d\d\d\d(,)?){3,}')
+# here is another example
+digitRegex = re.compile(r'(\d){3,5}')
+print(digitRegex.search('1234567890'))
+# here we notice that Python matches 5 digits out of the 3 digit and 4 digit options
+# this is because Python uses greedy match to match the longest possible string
+# if we want to do a non-greedy match, we just need to put a question mark behind
+digitRegex = re.compile(r'(\d){3,5}?')
+
+
 
