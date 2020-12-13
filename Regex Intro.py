@@ -155,3 +155,25 @@ print(dotStar.search(prime))
 # similarly we can have case insensitive while searching
 vowelRegex = re.compile(r'[aeiou]', re.I)
 
+# in Regex we can find and replace content
+namesRegex = re.compile(r'Agent \w+')
+print(namesRegex.findall('Agent Alice gave the secret documents to Agent Bob.'))
+print(namesRegex.sub('REDATCTED', 'Agent Alice gave the secret documents to Agent Bob.'))
+
+namesRegex = re.compile(r'Agent (\w)\w*')
+print(namesRegex.findall('Agent Alice gave the secret documents to Agent Bob.'))
+print(namesRegex.sub(r'Agent \1xxxx', 'Agent Alice gave the secret documents to Agent Bob.'))
+
+# to make Regex in python more readable, we can make it verbose
+# this means allowing comments in Regex, using phone number as the example
+# if we want to pass multiple arguments (re.DOTALL, re.IGNORECASE, re.VERBOSE)
+# combine them with the | bitwise operator
+phoneRegex = re.compile(r'''
+(\d\d\d-)|             # area code (without parens, with dash)
+(\(\d\d\d\))           # or area code with parens and no dash
+\d\d\d                 # first 3 digits
+-                      # second dash
+\d\d\d\d               # last 4 digits
+\sx\d{2,4}             # extension, like x1234''', re.VERBOSE | re.IGNORECASE | re.DOTALL)
+
+
